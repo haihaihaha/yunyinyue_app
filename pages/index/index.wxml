@@ -1,0 +1,100 @@
+<view class="indexContainer">
+  <!-- 轮播图区域 -->
+  <!-- 
+    微信轮播图组件swiper
+      里面只能用swiper-item
+      属性：
+        indicator-dots：是否显示面板指示点 不写默认flase ；声明后为true，可以不赋值为tre 
+        indicator-color：设置点的颜色
+        indicator-active-color：设置选中点的颜色
+  -->
+  <swiper 
+    class="banners" 
+    indicator-dots 
+    indicator-color='ivory' 
+    indicator-active-color='#d43c33'>
+    <swiper-item wx:for="{{bannerList}}" wx:key="bannerId">
+      <image src="{{item.pic}}"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 五个图标导航区域 -->
+  <view class="navContainer">
+    <view class="navItem" bindtap="toRecommendSong">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+    <view class="navItem" bindtap="toOther">
+      <text class="iconfont icon-gedan1"></text>
+      <text>Other页面</text>
+    </view>
+    <view class="navItem">
+      <text class="iconfont icon-icon-ranking"></text>
+      <text>排行榜</text>
+    </view>
+    <view class="navItem">
+      <text class="iconfont icon-diantai"></text>
+      <text>电台</text>
+    </view>
+    <view class="navItem">
+      <text class="iconfont icon-zhiboguankanliangbofangsheyingshexiangjixianxing"></text>
+      <text>直播</text>
+    </view>
+  </view>
+
+  <!-- 推荐歌曲区域 -->
+  <view class="recommendContainer">
+    <!-- 头部区域 -->
+    <NavHeader title="推荐歌曲" nav="为你精心推荐"></NavHeader>
+
+    <!-- 内容区 -->
+    <!-- scroll-view 可滚动的视图区域
+        需要设置固定高度
+        属性：
+          enable-flex：启用flexbox布局
+          scroll-x：允许横向滑动
+     -->
+    <scroll-view class="recommendScroll" enable-flex scroll-x>
+    <!--wx:for 
+        默认数组当前项下标变量名为index，变量名为item
+        属性：         
+          wx:key--指定当前元素下标变量名
+          wx:for-item--指定当前元素变量名
+     -->
+      <view class="scrollItem" wx:for="{{recommendList}}" wx:key="id" wx:for-item="recommendItem">
+        <image src="{{recommendItem.picUrl}}"></image>
+        <text>{{recommendItem.name}}</text>
+      </view>
+    </scroll-view>
+
+  </view>
+
+  <!-- 排行榜区域 -->
+  <view class="topList">
+    <!-- 头部区域 -->
+    <!-- 自定义组件 NavHeader 
+      注册--在使用的文件夹的json的usingComponents里注册组件
+    -->
+    <NavHeader title="排行榜" nav="热歌风向标"></NavHeader>
+
+    <!-- 内容区域 -->
+    <!-- swiper
+      circular--是否采取衔接滑动
+      next-margin--露出后面的
+      previous-margin--露出前面的
+    -->
+    <swiper class="topListSwiper" circular next-margin="50rpx" previous-margin="50rpx">
+      <swiper-item wx:for="{{topList}}" wx:key="name">
+        <view class="swiperItem">
+          <view class="title">{{item.name}}</view>
+          <view class="musicItem" wx:for="{{item.tracks}}" wx:key="id" wx:for-item="musicItem">
+            <image src="{{musicItem.al.picUrl}}"></image>
+            <text class="count">{{index + 1}}</text>
+            <text class="musicName">{{musicItem.name}}</text>
+          </view>
+        </view>
+      </swiper-item>
+
+    </swiper>
+  </view>
+</view>

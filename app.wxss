@@ -1,0 +1,7 @@
+/* 全局引入阿里图标库 一劳永逸 */
+@import "/static/iconfont/iconfont.wxss";
+
+/* 设置page高度 最外层容器默认 没有设置高度，是靠内部容器填充的 */
+page {
+  height: 100%;
+}
